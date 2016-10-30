@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import Post from './Post.vue';
+import eventHub from '../event'
+import Post from './Post.vue'
 import PostForm from './PostForm.vue'
     export default {
 
@@ -31,7 +32,15 @@ import PostForm from './PostForm.vue'
             Post, PostForm
         ],
 
+        methods: {
+            addPost(post) {
+                this.posts.unshift(post)
+            }
+        },
+
         mounted() {
+            eventHub.$on('post-added', this.addPost)
+
             this.$http.get('/posts').then((response) => {
                 this.posts = response.body
             })

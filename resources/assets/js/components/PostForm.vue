@@ -8,6 +8,8 @@
 </template>
 
 <script>
+    import eventHub from '../event'
+
     export default{
         data() {
             return {
@@ -20,6 +22,7 @@
                 this.$http.post('/posts', {
                     body: this.body
                 }).then((response) => {
+                    eventHub.$emit('post-added', response.body)
                     this.body = null
                 });
             }
