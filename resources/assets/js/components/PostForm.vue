@@ -1,7 +1,7 @@
 <template>
     <form action="#" class="form-vertical" @submit.prevent="post">
         <div class="form-group">
-            <textarea class="form-control" cols="30" rows="3" placeholder="Write something likable"></textarea>
+            <textarea class="form-control" cols="30" rows="3" placeholder="Write something likable" v-model="body"></textarea>
         </div>
         <button type="submit" class="btn btn-default">Post it!</button>
     </form>
@@ -9,8 +9,20 @@
 
 <script>
     export default{
+        data() {
+            return {
+                body: null
+            }
+        },
+
         methods: {
-            //6
+            post () {
+                this.$http.post('/posts', {
+                    body: this.body
+                }).then((response) => {
+                    this.body = null
+                });
+            }
         }
     }
 </script>
