@@ -1,6 +1,6 @@
 <template>
     <div class="media">
-        <like-button></like-button>
+        <like-button v-if="post.likedByCurrentUser === false && $root.user.id !== post.user.id"></like-button>
         <div class="media-left">
             <a href="#">
                 <img class="media-object" v-bind:src="post.user.avatar" v-bind:alt="post.user.name + ' avatar'">
@@ -9,11 +9,13 @@
         <div class="media-body">
             <strong>{{ post.user.name }}</strong>
             <p>{{ post.body }}</p>
+            <p>{{ post.likeCount }} {{ pluralize('like', post.likeCount) }}</p>
         </div>
     </div>
 </template>
 
 <script>
+    import pluralize from 'pluralize'
     import LikeButton from './LikeButton.vue'
 
     export default{
@@ -23,7 +25,11 @@
 
         component: [
             LikeButton
-        ]
+        ],
+
+        methods: {
+          pluralize
+        }
     }
 </script>
 

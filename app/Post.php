@@ -33,6 +33,12 @@ class Post extends Model
     }
 
 
+    public function getCanBeLikedByCurrentUserAttribute()
+    {
+        //7
+    }
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
